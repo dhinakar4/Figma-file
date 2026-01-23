@@ -10,8 +10,21 @@ import img9 from '../public/categories/img9.png';
 import img10 from '../public/categories/img10.png';
 import img11 from '../public/categories/img11.png';
 import img12 from '../public/categories/img12.png';
+import { useNavigate } from 'react-router-dom';
 
 function Categories() {
+
+    const navigate = useNavigate();
+
+    const handleCategoryClick = (title) => {
+        const slug = title
+            .toLowerCase()
+            .replace(/ & /g, "-")
+            .replace(/\s+/g, "-");
+
+        navigate(`/category/${slug}`);
+    };
+
 
     const categories = [
         { id: 1, title: "Fresh Fruits", image: img1 },
@@ -42,7 +55,8 @@ function Categories() {
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 md:gap-4">
                 {categories.map((item) => (
-                    <div key={item.id} className="text-center border border-gray-200 rounded-md
+                    <div key={item.id} onClick={() => handleCategoryClick(item.title)}
+                    className="text-center border border-gray-200 rounded-md
                             hover:!border-green-600
                             hover:ring-1 hover:ring-green-600/40
                             hover:shadow-[0_0_15px_rgba(34,197,94,0.35)]
