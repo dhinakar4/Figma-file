@@ -22,10 +22,12 @@ import img12 from "../public/hotdeals/img12.png";
 import img13 from "../public/hotdeals/img13.png";
 import img14 from "../public/hotdeals/img14.png";
 import img15 from "../public/hotdeals/img15.png";
+import brand from '../public/brand.png';
 
 import Blog from "./Blog";
 import Footer from "./Footer";
 
+import { FaFacebookF, FaTwitter, FaPinterestP, FaInstagram } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { CiHeart } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
@@ -34,6 +36,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 
 
 function CategoryDetails() {
+
     const { slug } = useParams();
 
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -60,9 +63,6 @@ function CategoryDetails() {
         console.log("Added to cart:", product);
     };
 
-
-
-
     const categories = [
         { id: 1, title: "Green Apple", image: img1, price: "$12.00", oldprice: "$24.00", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "fruits" },
         { id: 2, title: "Chinese cabbage", image: img2, price: "$12.00", oldprice: "", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: false, category: "vegetables" },
@@ -76,10 +76,20 @@ function CategoryDetails() {
         { id: 10, title: "Red Capsium", image: img10, price: "$12.00", oldprice: "$24.00", rating: 4, offerEnd: "2026-01-30T18:30:00", sale: true, inStock: true, category: "vegetables" },
         { id: 11, title: "Red Tomatoes", image: img11, price: "$9.00", oldprice: "$20.99", rating: 4, offerEnd: "2026-01-30T18:30:00", sale: true, inStock: true, category: "vegetables" },
         { id: 12, title: "Surjapur Mango", image: img12, price: "$34.00", oldprice: "", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "fruits" },
-        { id: 13, title: "Green Cucumber", image: img13, price: "$15.99", oldprice: "$30.00", rating: 4, offerEnd: "2026-01-30T18:30:00", sale: true, inStock: true, category: "fruits" },
+        { id: 13, title: "Green Cucumber", image: img13, price: "$15.99", oldprice: "$30.00", rating: 4, offerEnd: "2026-01-30T18:30:00", sale: true, inStock: true, category: "vegetables" },
         { id: 14, title: "Ladies Finger", image: img14, price: "$14.99", oldprice: "", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: false, category: "vegetables" },
         { id: 15, title: "Red Chilli", image: img15, price: "$14.99", oldprice: "$28.00", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "vegetables" },
     ];
+
+    const [qty, setQty] = useState(1);
+
+    const increaseQty = () => {
+        setQty((prev) => prev + 1);
+    };
+
+    const decreaseQty = () => {
+        setQty((prev) => (prev > 1 ? prev - 1 : 1));
+    };
 
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [selectedPrice, setSelectedPrice] = useState("all");
@@ -465,27 +475,52 @@ function CategoryDetails() {
 
                                 {/* CONTENT */}
                                 <div>
-                                    <h2 className="text-2xl font-semibold mb-1">
-                                        {selectedProduct.title}
-                                    </h2>
+                                    <div className="items-center mb-1">
+                                        <span className="text-2xl font-semibold">{selectedProduct.title}</span>
+                                        {selectedProduct.inStock === true && (
+                                            <span className="ms-1 bg-green-200 text-green-800 text-[8px] rounded-sm p-1">
+                                                IN STOCK
+                                            </span>
+                                        )}
+                                    </div>
 
-                                    <p className="text-sm text-gray-500 mb-2">
-                                        ⭐ {selectedProduct.rating} Review
-                                    </p>
+                                    <div className="flex text-sm text-gray-500 mb-1 items-center">
+                                        <Stars rating={selectedProduct.rating} />
+                                        <span className="!text-[10px] ms-1">{selectedProduct.rating} Review</span>
+                                    </div>
 
-                                    <div className="flex items-center gap-3 mb-4">
-                                        <span className="text-green-600 text-2xl font-bold">
-                                            {selectedProduct.price}
-                                        </span>
+                                    <div className="flex items-center gap-2 mb-1">
 
                                         {selectedProduct.oldprice && (
                                             <span className="text-gray-400 line-through">
                                                 {selectedProduct.oldprice}
                                             </span>
                                         )}
+                                        <span className="text-green-600 text-2xl font-bold">
+                                            {selectedProduct.price}
+                                        </span>
 
-                                        <span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded">
+
+
+                                        <span className="text-xs bg-red-100 text-red-600 px-2 py-1 !rounded-full">
                                             64% OFF
+                                        </span>
+                                    </div>
+                                    <hr />
+
+                                    <div className="mb-2 flex justify-between text-xs">
+                                        <span className="flex items-center gap-2 font-semibold">Brand: <img src={brand} alt="" /></span>
+                                        <span className="flex items-center gap-2 font-semibold">Share item:
+                                            <span className="flex gap-1 mt-4 md:!mt-0">
+                                                {[FaFacebookF, FaTwitter, FaPinterestP, FaInstagram].map((Icon, idx) => (
+                                                    <div
+                                                        key={idx}
+                                                        className="p-2 !rounded-full text-gray-700 hover:text-white hover:bg-green-500 hover:!rounded-full cursor-pointer transition"
+                                                    >
+                                                        <Icon size={16} />
+                                                    </div>
+                                                ))}
+                                            </span>
                                         </span>
                                     </div>
 
@@ -496,10 +531,15 @@ function CategoryDetails() {
 
                                     {/* QTY + CART */}
                                     <div className="flex items-center gap-3 mb-4">
-                                        <div className="flex items-center border rounded-full px-3 py-1">
-                                            <button>-</button>
-                                            <span className="mx-3">1</span>
-                                            <button>+</button>
+                                        <div className="flex items-center border !rounded-full px-2 h-11">
+                                            <button
+                                                onClick={decreaseQty}
+                                                disabled={qty === 1}
+                                                className="!rounded-full w-7 h-7 bg-gray-300 flex items-center justify-center font-medium transition">-</button>
+                                            <span className="mx-3">{qty}</span>
+                                            <button
+                                                onClick={increaseQty}
+                                                className="!rounded-full w-7 h-7 bg-gray-300 flex items-center justify-center font-medium transition">+</button>
                                         </div>
 
                                         <button
@@ -507,15 +547,24 @@ function CategoryDetails() {
                                                 e.stopPropagation();
                                                 handleAddToCart(selectedProduct);
                                             }}
-                                            className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full"
-                                        >
-                                            Add to Cart
+                                            className="flex items-center justify-center gap-2 px-6 sm:!px-8 md:!px-10 h-11
+                                            bg-green-500 hover:bg-green-600 text-white text-md md:!text-base !rounded-full
+                                            font-semibold transition">
+                                            Add to Cart <HiOutlineShoppingBag size={14} />
+                                        </button>
+
+                                        <button className="w-11 h-11 !rounded-full bg-green-100 text-green-800 hover:bg-green-600 hover:text-white transition flex items-center justify-center">
+                                            <CiHeart size={20} />
                                         </button>
 
                                     </div>
+                                    <hr />
 
                                     <p className="text-sm">
                                         <b>Category:</b> {selectedProduct.category}
+                                    </p>
+                                    <p className="text-sm">
+                                        <b>Tag:</b> {selectedProduct.category} Healthy <u>{selectedProduct.title}</u>
                                     </p>
                                 </div>
 
