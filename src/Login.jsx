@@ -5,11 +5,29 @@ function Login() {
   const location = useLocation();
 
   const handleLogin = () => {
-    // fake login
+    // 1️⃣ Fake login (replace with API later)
     localStorage.setItem("token", "dummy-token");
 
-    // go back to previous page
-    navigate(location.state?.from || "/");
+    // 2️⃣ Read data passed from Add to Cart
+    const { product, qty, redirectTo } = location.state || {};
+
+    // 3️⃣ If product exists → add to cart
+    if (product) {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      const existing = cart.find((item) => item.id === product.id);
+
+      if (existing) {
+        existing.qty += qty || 1;
+      } else {
+        cart.push({ ...product, qty: qty || 1 });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    // 4️⃣ Redirect
+    navigate(redirectTo || "/");
   };
 
   return (

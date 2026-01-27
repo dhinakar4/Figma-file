@@ -5,16 +5,71 @@ import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { CiLocationOn } from "react-icons/ci";
 import { IoIosArrowDown } from "react-icons/io";
 import { useState } from 'react';
+import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function Topbar() {
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const navigate = useNavigate();
+
     const [search, setSearch] = useState("");
+
+    const [cartTotal, setCartTotal] = useState(0);
+
+    const [cartCount, setCartCount] = useState(0);
 
     const handleSearch = () => {
         alert(`Searching for: ${search}`);
     };
     const [openLang, setOpenLang] = useState(false);
     const [openCurr, setOpenCurr] = useState(false);
+
+
+    useEffect(() => {
+        const updateCart = () => {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            const totalQty = cart.reduce(
+                (sum, item) => sum + (item.qty || 1),
+                0
+            );
+
+            const totalPrice = cart.reduce(
+                (sum, item) =>
+                    sum + parseFloat(item.price.replace("$", "")) * (item.qty || 1),
+                0
+            );
+
+            setCartCount(totalQty);
+            setCartTotal(totalPrice); // ⭐ IMPORTANT
+        };
+
+        updateCart(); // initial load
+
+        window.addEventListener("cartUpdated", updateCart);
+
+        return () => {
+            window.removeEventListener("cartUpdated", updateCart);
+        };
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("cart"); // optional
+        window.dispatchEvent(new Event("cartUpdated"));
+        setIsLoggedIn(false);
+        navigate("/");
+    };
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        setIsLoggedIn(!!token);
+    }, []);
+
+    const handleCartClick = () => {
+        navigate("/cart");
+    };
 
     return (
         <div>
@@ -50,9 +105,26 @@ function Topbar() {
                     <span className="hidden sm:block h-4 w-px bg-gray-300"></span>
 
                     {/* AUTH */}
-                    <span className="cursor-pointer">
-                        Sign In / Sign Up
-                    </span>
+                    {!isLoggedIn ? (
+                        <span
+                            onClick={() => navigate("/login")}
+                            className="cursor-pointer hover:text-green-600"
+                        >
+                            Sign In / Sign Up
+                        </span>
+                    ) : (
+                        <div className="flex items-center gap-2">
+                            <span className="cursor-pointer hover:text-green-600">
+                                My Account
+                            </span>
+                            <span
+                                onClick={handleLogout}
+                                className="cursor-pointer text-red-500 hover:underline"
+                            >
+                                Logout
+                            </span>
+                        </div>
+                    )}
                 </div>
 
             </div>
@@ -93,16 +165,32 @@ function Topbar() {
                 </div>
 
                 {/* ICONS */}
-                <div className="flex items-center justify-center md:justify-end gap-2">
+                <div 
+                onClick={handleCartClick}
+                className="flex items-center justify-center md:justify-end gap-3">
                     <IoIosHeartEmpty className="text-xl cursor-pointer" />
 
                     <span className="h-5 w-px bg-gray-400"></span>
 
-                    <HiOutlineShoppingBag className="text-xl cursor-pointer" />
+                    <div className="relative cursor-pointer">
+                        <HiOutlineShoppingBag className="text-xl" />
 
-                    <span className="text-xs hidden sm:block">
-                        Shopping cart
-                    </span>
+                        {cartCount > 0 && (
+                            <span className="absolute -top-2 -right-2 bg-green-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                                {cartCount}
+                            </span>
+                        )}
+                    </div>
+
+                    {/* PRICE + TEXT */}
+                    <div className="hidden sm:flex flex-col leading-tight">
+                        <span className="font-semibold text-green-600 text-sm">
+                            ${cartTotal.toFixed(2)}
+                        </span>
+                        <span className="text-[11px] text-gray-500">
+                            Shopping cart
+                        </span>
+                    </div>
                 </div>
 
             </div>

@@ -23,6 +23,10 @@ import img13 from "../public/hotdeals/img13.png";
 import img14 from "../public/hotdeals/img14.png";
 import img15 from "../public/hotdeals/img15.png";
 import brand from '../public/brand.png';
+import detail1 from '../public/detailimage/img1.png';
+import detail2 from '../public/detailimage/img2.png';
+import detail3 from '../public/detailimage/img3.png';
+import detail4 from '../public/detailimage/img4.png';
 
 import Blog from "./Blog";
 import Footer from "./Footer";
@@ -53,15 +57,36 @@ function CategoryDetails() {
         if (!token) {
             navigate("/login", {
                 state: {
-                    from: "/category",
-                    product
-                }
+                    redirectTo: "/cart",
+                    product,
+                    qty,
+                },
             });
             return;
         }
 
-        console.log("Added to cart:", product);
+        // Logged in → add directly
+        addProductToCart(product, qty);
+        navigate("/cart");
     };
+
+    const addProductToCart = (product, qty) => {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        const existing = cart.find((item) => item.id === product.id);
+
+        if (existing) {
+            existing.qty += qty;
+        } else {
+            cart.push({ ...product, qty });
+        }
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        // ⭐ THIS LINE IS THE KEY
+        window.dispatchEvent(new Event("cartUpdated"));
+    };
+
 
     const categories = [
         { id: 1, title: "Green Apple", image: img1, price: "$12.00", oldprice: "$24.00", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "fruits" },
@@ -96,6 +121,42 @@ function CategoryDetails() {
     const [selectedRating, setSelectedRating] = useState("all");
     const [sortBy, setSortBy] = useState("latest");
     const [showCount, setShowCount] = useState(16);
+
+    const detailImages = selectedProduct
+        ? [
+            selectedProduct.image,
+            detail2,
+            detail3,
+            detail4,
+        ]
+        : [];
+
+    const [activeImage, setActiveImage] = useState(null);
+
+    useEffect(() => {
+        if (selectedProduct?.image) {
+            setActiveImage(selectedProduct.image);
+            setThumbIndex(0);
+        }
+    }, [selectedProduct]);
+
+    const [thumbIndex, setThumbIndex] = useState(0);
+
+    const handleUp = () => {
+        setThumbIndex((prev) => {
+            const next = Math.max(prev - 1, 0);
+            setActiveImage(detailImages[next]);
+            return next;
+        });
+    };
+
+    const handleDown = () => {
+        setThumbIndex((prev) => {
+            const next = Math.min(prev + 1, detailImages.length - 1);
+            setActiveImage(detailImages[next]);
+            return next;
+        });
+    };
 
     const filteredProducts = categories
         .filter((item) => {
@@ -449,48 +510,102 @@ function CategoryDetails() {
 
 
                 {selectedProduct && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-2 sm:px-4">
 
                         {/* MODAL */}
-                        <div className="bg-white w-[95%] md:w-[900px] relative p-6">
-
+                        <div
+                            className=" bg-white relative w-full sm:w-[90%] md:w-[900px] max-h-[90vh]
+                            overflow-y-auto p-4 sm:p-6 rounded-md"    >
                             {/* CLOSE */}
                             <button
                                 onClick={() => setSelectedProduct(null)}
-                                className="absolute right-4 top-4 text-xl text-gray-500 hover:text-black"
+                                className="absolute right-3 top-3 sm:right-4 sm:top-5 text-xl text-gray-500 hover:text-black"
                             >
                                 ✕
                             </button>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
 
                                 {/* IMAGE */}
-                                <div className="flex items-center justify-center">
-                                    <img
-                                        src={selectedProduct.image}
-                                        alt={selectedProduct.title}
-                                        className="w-full max-h-[350px] object-contain"
-                                    />
+                                <div className="flex gap-6 items-center">
+
+                                    {/* LEFT THUMBNAILS + ARROWS */}
+                                    <div className="hidden sm:flex flex-col items-center gap-3">
+
+                                        {/* UP ARROW */}
+                                        <button
+                                            onClick={handleUp}
+                                            className="text-gray-400 hover:text-black">
+                                            ▲
+                                        </button>
+
+                                        {/* THUMB LIST */}
+                                        <div className="flex flex-col gap-3">
+                                            {detailImages.map((img, idx) => (
+                                                <button
+                                                    key={idx}
+                                                    onClick={() => {
+                                                        setActiveImage(img);
+                                                        setThumbIndex(idx);
+                                                    }}
+                                                    className={`w-16 h-16 border rounded-md p-1 flex items-center justify-center
+                                                        ${activeImage === img
+                                                            ? "!border-green-500"
+                                                            : "!border-gray-200 !hover:border-green-400"
+                                                        }`}
+                                                >
+                                                    <img
+                                                        src={img}
+                                                        alt=""
+                                                        className="w-full h-full object-contain"
+                                                    />
+                                                </button>
+                                            ))}
+                                        </div>
+
+                                        {/* DOWN ARROW */}
+                                        <button
+                                            onClick={handleDown}
+                                            className="text-gray-400 hover:text-black">
+                                            ▼
+                                        </button>
+                                    </div>
+
+                                    {/* MAIN IMAGE */}
+                                    <div className="flex-1 flex items-center justify-center">
+                                        {activeImage && (
+                                            <img
+                                                src={activeImage}
+                                                alt={selectedProduct?.title || "product"}
+                                                className="w-full max-h-[420px] object-contain"
+                                            />
+                                        )}
+                                    </div>
+
                                 </div>
 
                                 {/* CONTENT */}
                                 <div>
-                                    <div className="items-center mb-1">
-                                        <span className="text-2xl font-semibold">{selectedProduct.title}</span>
-                                        {selectedProduct.inStock === true && (
-                                            <span className="ms-1 bg-green-200 text-green-800 text-[8px] rounded-sm p-1">
+
+                                    <div className="flex flex-wrap items-center gap-2 mb-1">
+                                        <span className="text-xl sm:text-2xl font-semibold">
+                                            {selectedProduct.title}
+                                        </span>
+                                        {selectedProduct.inStock && (
+                                            <span className="bg-green-200 text-green-800 text-[8px] rounded-sm px-2 py-1">
                                                 IN STOCK
                                             </span>
                                         )}
                                     </div>
 
-                                    <div className="flex text-sm text-gray-500 mb-1 items-center">
+                                    <div className="flex items-center text-sm text-gray-500 mb-2 gap-1">
                                         <Stars rating={selectedProduct.rating} />
-                                        <span className="!text-[10px] ms-1">{selectedProduct.rating} Review</span>
+                                        <span className="text-[10px]">
+                                            {selectedProduct.rating} Review
+                                        </span>
                                     </div>
 
-                                    <div className="flex items-center gap-2 mb-1">
-
+                                    <div className="flex flex-wrap items-center gap-2 mb-2">
                                         {selectedProduct.oldprice && (
                                             <span className="text-gray-400 line-through">
                                                 {selectedProduct.oldprice}
@@ -499,27 +614,32 @@ function CategoryDetails() {
                                         <span className="text-green-600 text-2xl font-bold">
                                             {selectedProduct.price}
                                         </span>
-
-
-
-                                        <span className="text-xs bg-red-100 text-red-600 px-2 py-1 !rounded-full">
+                                        <span className="text-xs bg-red-100 text-red-600 px-2 py-1 rounded-full">
                                             64% OFF
                                         </span>
                                     </div>
-                                    <hr />
 
-                                    <div className="mb-2 flex justify-between text-xs">
-                                        <span className="flex items-center gap-2 font-semibold">Brand: <img src={brand} alt="" /></span>
-                                        <span className="flex items-center gap-2 font-semibold">Share item:
-                                            <span className="flex gap-1 mt-4 md:!mt-0">
-                                                {[FaFacebookF, FaTwitter, FaPinterestP, FaInstagram].map((Icon, idx) => (
-                                                    <div
-                                                        key={idx}
-                                                        className="p-2 !rounded-full text-gray-700 hover:text-white hover:bg-green-500 hover:!rounded-full cursor-pointer transition"
-                                                    >
-                                                        <Icon size={16} />
-                                                    </div>
-                                                ))}
+                                    <hr className="my-2" />
+
+                                    {/* BRAND + SHARE */}
+                                    <div className="flex flex-col sm:flex-row sm:justify-between gap-3 text-xs mb-3">
+                                        <span className="flex items-center gap-2 font-semibold">
+                                            Brand: <img src={brand} alt="" className="h-8" />
+                                        </span>
+
+                                        <span className="flex items-center gap-2 font-semibold">
+                                            Share item:
+                                            <span className="flex gap-1">
+                                                {[FaFacebookF, FaTwitter, FaPinterestP, FaInstagram].map(
+                                                    (Icon, idx) => (
+                                                        <div
+                                                            key={idx}
+                                                            className="p-2 rounded-full text-gray-700 hover:text-white hover:bg-green-500 cursor-pointer transition"
+                                                        >
+                                                            <Icon size={14} />
+                                                        </div>
+                                                    )
+                                                )}
                                             </span>
                                         </span>
                                     </div>
@@ -530,16 +650,23 @@ function CategoryDetails() {
                                     </p>
 
                                     {/* QTY + CART */}
-                                    <div className="flex items-center gap-3 mb-4">
+                                    <div className="flex flex-wrap items-center gap-3 mb-4">
+
                                         <div className="flex items-center border !rounded-full px-2 h-11">
                                             <button
                                                 onClick={decreaseQty}
                                                 disabled={qty === 1}
-                                                className="!rounded-full w-7 h-7 bg-gray-300 flex items-center justify-center font-medium transition">-</button>
+                                                className="!rounded-full w-7 h-7 bg-gray-300 flex items-center justify-center font-medium"
+                                            >
+                                                -
+                                            </button>
                                             <span className="mx-3">{qty}</span>
                                             <button
                                                 onClick={increaseQty}
-                                                className="!rounded-full w-7 h-7 bg-gray-300 flex items-center justify-center font-medium transition">+</button>
+                                                className="!rounded-full w-7 h-7 bg-gray-300 flex items-center justify-center font-medium"
+                                            >
+                                                +
+                                            </button>
                                         </div>
 
                                         <button
@@ -547,9 +674,9 @@ function CategoryDetails() {
                                                 e.stopPropagation();
                                                 handleAddToCart(selectedProduct);
                                             }}
-                                            className="flex items-center justify-center gap-2 px-6 sm:!px-8 md:!px-10 h-11
-                                            bg-green-500 hover:bg-green-600 text-white text-md md:!text-base !rounded-full
-                                            font-semibold transition">
+                                            className="flex items-center justify-center gap-2
+                                            px-6 sm:px-8 md:px-10 h-11 bg-green-500 hover:bg-green-600
+                                            text-white text-sm sm:text-base !rounded-full font-semibold transition" >
                                             Add to Cart <HiOutlineShoppingBag size={14} />
                                         </button>
 
@@ -558,16 +685,18 @@ function CategoryDetails() {
                                         </button>
 
                                     </div>
-                                    <hr />
+
+                                    <hr className="my-2" />
 
                                     <p className="text-sm">
                                         <b>Category:</b> {selectedProduct.category}
                                     </p>
                                     <p className="text-sm">
-                                        <b>Tag:</b> {selectedProduct.category} Healthy <u>{selectedProduct.title}</u>
+                                        <b>Tag:</b> {selectedProduct.category} Healthy{" "}
+                                        <u>{selectedProduct.title}</u>
                                     </p>
-                                </div>
 
+                                </div>
                             </div>
                         </div>
                     </div>
