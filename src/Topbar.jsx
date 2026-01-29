@@ -19,6 +19,8 @@ function Topbar() {
 
     const [cartCount, setCartCount] = useState(0);
 
+    const [wishlistCount, setWishlistCount] = useState(0);
+
     const handleSearch = () => {
         alert(`Searching for: ${search}`);
     };
@@ -70,6 +72,22 @@ function Topbar() {
     const handleCartClick = () => {
         navigate("/cart");
     };
+
+    useEffect(() => {
+        const updateWishlist = () => {
+            const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+            setWishlistCount(wishlist.length);
+        };
+
+        updateWishlist(); // initial load
+
+        window.addEventListener("wishlistUpdated", updateWishlist);
+
+        return () => {
+            window.removeEventListener("wishlistUpdated", updateWishlist);
+        };
+    }, []);
+
 
     return (
         <div>
@@ -165,18 +183,29 @@ function Topbar() {
                 </div>
 
                 {/* ICONS */}
-                <div 
-                onClick={handleCartClick}
-                className="flex items-center justify-center md:justify-end gap-3">
-                    <IoIosHeartEmpty className="text-xl cursor-pointer" />
+                <div className="flex items-center justify-center md:justify-end gap-3">
+                    <div
+                        onClick={() => navigate("/wishlist")}
+                        className="relative cursor-pointer"
+                    >
+                        <IoIosHeartEmpty className="text-xl" />
+
+                        {wishlistCount > 0 && (
+                            <span className="absolute -top-2 -right-2 bg-green-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                                {wishlistCount}
+                            </span>
+                        )}
+                    </div>
 
                     <span className="h-5 w-px bg-gray-400"></span>
 
-                    <div className="relative cursor-pointer">
+                    <div
+                    onClick={handleCartClick}
+                     className="relative cursor-pointer">
                         <HiOutlineShoppingBag className="text-xl" />
 
                         {cartCount > 0 && (
-                            <span className="absolute -top-2 -right-2 bg-green-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                            <span className="absolute -top-2 -right-2 bg-green-600 text-white text-[10px] font-bold w-4 h-4 !rounded-full flex items-center justify-center">
                                 {cartCount}
                             </span>
                         )}

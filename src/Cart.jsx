@@ -193,7 +193,10 @@ function Cart() {
                             <span>${subtotal.toFixed(2)}</span>
                         </div>
 
-                        <button className="w-full bg-green-500 text-white py-3 !rounded-full">
+                        <button
+                            onClick={() => navigate("/checkout")}
+                            className="w-full bg-green-500 hover:bg-green-600 text-white py-3 !rounded-full"
+                        >
                             Proceed to checkout
                         </button>
                     </div>

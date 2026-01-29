@@ -23,7 +23,6 @@ import img13 from "../public/hotdeals/img13.png";
 import img14 from "../public/hotdeals/img14.png";
 import img15 from "../public/hotdeals/img15.png";
 import brand from '../public/brand.png';
-import detail1 from '../public/detailimage/img1.png';
 import detail2 from '../public/detailimage/img2.png';
 import detail3 from '../public/detailimage/img3.png';
 import detail4 from '../public/detailimage/img4.png';
@@ -34,6 +33,7 @@ import Footer from "./Footer";
 import { FaFacebookF, FaTwitter, FaPinterestP, FaInstagram } from "react-icons/fa";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
@@ -87,6 +87,35 @@ function CategoryDetails() {
         window.dispatchEvent(new Event("cartUpdated"));
     };
 
+
+    // WISHLIST LOGIC
+    const [wishlist, setWishlist] = useState([]);
+
+    useEffect(() => {
+        const stored = JSON.parse(localStorage.getItem("wishlist")) || [];
+        setWishlist(stored);
+    }, []);
+
+    const isWishlisted = (id) => {
+        return wishlist.some((item) => item.id === id);
+    };
+
+    const toggleWishlist = (product, e) => {
+        if (e) e.stopPropagation(); // prevent card click
+
+        let updatedWishlist;
+
+        if (isWishlisted(product.id)) {
+            updatedWishlist = wishlist.filter((item) => item.id !== product.id);
+        } else {
+            updatedWishlist = [...wishlist, product];
+        }
+
+        setWishlist(updatedWishlist);
+        localStorage.setItem("wishlist", JSON.stringify(updatedWishlist));
+
+        window.dispatchEvent(new Event("wishlistUpdated")); // optional
+    };
 
     const categories = [
         { id: 1, title: "Green Apple", image: img1, price: "$12.00", oldprice: "$24.00", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "fruits" },
@@ -680,8 +709,19 @@ function CategoryDetails() {
                                             Add to Cart <HiOutlineShoppingBag size={14} />
                                         </button>
 
-                                        <button className="w-11 h-11 !rounded-full bg-green-100 text-green-800 hover:bg-green-600 hover:text-white transition flex items-center justify-center">
-                                            <CiHeart size={20} />
+                                        <button
+                                            onClick={(e) => toggleWishlist(selectedProduct, e)}
+                                            className={`w-11 h-11 !rounded-full transition flex items-center justify-center
+                                             ${isWishlisted(selectedProduct.id)
+                                                    ? "bg-green-600 text-white"
+                                                    : "bg-green-100 text-green-800 hover:bg-green-600 hover:text-white"
+                                                }`}
+                                        >
+                                            {isWishlisted(selectedProduct.id) ? (
+                                                <FaHeart size={18} />
+                                            ) : (
+                                                <CiHeart size={20} />
+                                            )}
                                         </button>
 
                                     </div>
