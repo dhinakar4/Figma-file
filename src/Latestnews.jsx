@@ -19,7 +19,7 @@ function Latestnews() {
     ];
 
     return (
-        <div className="px-3 md:!px-12 mt-5">
+        <div className="px-3 md:!px-12 lg:!px-20 mt-5">
 
             {/* HEADER */}
             <div className="mb-4 !items-center !justify-center !text-center">

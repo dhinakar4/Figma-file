@@ -19,8 +19,8 @@ function Blog() {
     };
 
     return (
-        <div className="">
-            <div className="bg-gray-100 py-8 px-4 md:!px-16 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div>
+            <div className="bg-gray-100 py-8 px-3 md:!px-12 lg:!px-20 flex flex-col md:flex-row items-center justify-between gap-4">
 
                 {/* Text */}
                 <div className="text-center md:!text-left">

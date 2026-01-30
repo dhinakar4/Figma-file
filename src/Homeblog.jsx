@@ -5,7 +5,7 @@ import img4 from '../public/blog/img4.png';
 
 function Homeblog() {
     return (
-        <div className="mt-5 px-3 md:!px-12">
+        <div className="mt-5 px-3 md:!px-12 lg:!px-20">
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 shadow py-3 px-2 md:px-4">
 

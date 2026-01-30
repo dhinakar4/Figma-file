@@ -8,6 +8,7 @@ function Checkout() {
     const [cart, setCart] = useState([]);
     const [payment, setPayment] = useState("cod");
 
+
     const [form, setForm] = useState({
         firstName: "",
         lastName: "",
@@ -110,7 +111,9 @@ function Checkout() {
                                 <select name="country" onChange={handleChange} className="input">
                                     <option value="">Country</option>
                                     <option>India</option>
+                                    <option>China</option>
                                     <option>USA</option>
+                                    <option>Australia</option>
                                 </select>
                                 {errors.country && <p className="error">{errors.country}</p>}
                             </div>
@@ -119,7 +122,9 @@ function Checkout() {
                                 <select name="state" onChange={handleChange} className="input">
                                     <option value="">State</option>
                                     <option>Tamil Nadu</option>
-                                    <option>California</option>
+                                    <option>Kerala</option>
+                                    <option>Karnataka</option>
+                                    <option>Goa</option>
                                 </select>
                                 {errors.state && <p className="error">{errors.state}</p>}
                             </div>
@@ -142,13 +147,13 @@ function Checkout() {
                             </div>
                         </div>
 
-                        <hr />
+                        <hr className="my-4" />
 
-                        <h3 className="text-lg font-semibold !mt-6 mb-2">Additional Info</h3>
+                        <h3 className="text-lg font-semibold">Additional Info</h3>
                         <textarea
                             name="notes"
                             onChange={handleChange}
-                            className="input w-full h-28"
+                            className="input w-full h-28 mt-2"
                             placeholder="Notes about your order"
                         />
                     </div>
@@ -165,7 +170,18 @@ function Checkout() {
                                         {item.title} × {item.qty}</span>
                                     <span className="">${(parseFloat(item.price.replace("$", "")) * item.qty).toFixed(2)}</span>
                                 </div>
+
                             ))}
+
+                            <div className="flex justify-between text-sm mb-2">
+                                <span>Subtotal:</span>
+                                <span>${subtotal.toFixed(2)}</span>
+                            </div>
+
+                            <div className="flex justify-between text-sm mb-2">
+                                <span>Shipping:</span>
+                                <span className="text-green-600">Free</span>
+                            </div>
 
                             <hr className="my-3" />
 
@@ -175,7 +191,7 @@ function Checkout() {
                             </div>
 
                             <h3 className="text-sm font-semibold mt-4 mb-2">Payment Method</h3>
-                            
+
                             <div className="flex flex-col gap-2">
                                 <label className="flex items-center gap-2 text-sm cursor-pointer">
                                     <input
@@ -183,6 +199,7 @@ function Checkout() {
                                         name="payment"
                                         checked={payment === "cod"}
                                         onChange={() => setPayment("cod")}
+                                        className="me-1"
                                     />
                                     Cash on Delivery
                                 </label>
@@ -193,14 +210,26 @@ function Checkout() {
                                         name="payment"
                                         checked={payment === "paypal"}
                                         onChange={() => setPayment("paypal")}
+                                        className="me-1"
                                     />
                                     PayPal
+                                </label>
+
+                                <label className="flex items-center gap-2 text-sm cursor-pointer">
+                                    <input
+                                        type="radio"
+                                        name="payment"
+                                        checked={payment === "amazon pay"}
+                                        onChange={() => setPayment("amazon pay")}
+                                        className="me-1"
+                                    />
+                                    Amazon Pay
                                 </label>
                             </div>
 
                             <button
                                 onClick={placeOrder}
-                                className="w-full mt-5 bg-green-500 hover:bg-green-600 text-white py-2 rounded-full font-semibold"
+                                className="w-full mt-5 bg-green-500 hover:bg-green-600 text-white py-2 !rounded-full font-semibold"
                             >
                                 Place Order
                             </button>

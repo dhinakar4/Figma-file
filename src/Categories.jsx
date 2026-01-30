@@ -42,7 +42,7 @@ function Categories() {
     ];
 
     return (
-        <div className='px-3 md:!px-12 mt-5'>
+        <div className='px-3 md:!px-12 lg:!px-20 mt-5'>
             <div className='flex items-center justify-between'>
                 <h3 className="text-xl font-semibold mb-4">
                     Popular Categories

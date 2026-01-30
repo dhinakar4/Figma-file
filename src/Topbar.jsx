@@ -91,7 +91,7 @@ function Topbar() {
 
     return (
         <div>
-            <div className="flex flex-col gap-2 sm:gap-0 sm:flex-row sm:!items-center sm:justify-between px-3 md:!px-12 pt-3">
+            <div className="flex flex-col gap-2 sm:gap-0 sm:flex-row sm:!items-center sm:justify-between px-3 md:!px-12 lg:!px-20 pt-3">
 
                 {/* LOCATION */}
                 <span className="flex items-center mx-auto sm:!mx-0 text-xs sm:text-sm md:text-base text-center">
@@ -132,9 +132,6 @@ function Topbar() {
                         </span>
                     ) : (
                         <div className="flex items-center gap-2">
-                            <span className="cursor-pointer hover:text-green-600">
-                                My Account
-                            </span>
                             <span
                                 onClick={handleLogout}
                                 className="cursor-pointer text-red-500 hover:underline"
@@ -150,7 +147,7 @@ function Topbar() {
 
             <hr />
 
-            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between px-5 mt-2">
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between px-3 md:!px-12 lg:!px-20 mt-2">
 
                 {/* LOGO */}
                 <img

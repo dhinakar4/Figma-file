@@ -32,8 +32,8 @@ function Login() {
 
   return (
     <div className="h-screen flex items-center justify-center">
-      <div className="border p-6 rounded-md w-[300px]">
-        <h2 className="text-xl font-semibold mb-4">Login</h2>
+      <div className="border p-6 rounded-md w-[300px] shadow-md">
+        <h2 className="text-xl font-semibold mb-4 text-center">Sign in</h2>
 
         <input
           type="email"
@@ -49,10 +49,21 @@ function Login() {
 
         <button
           onClick={handleLogin}
-          className="bg-green-600 text-white w-full py-2 rounded"
+          className="bg-green-500 hover:bg-green-600 text-white w-full py-2 !rounded-full"
         >
           Login
         </button>
+
+        <div className="mt-4 text-center text-sm text-gray-600">
+          Don&apos;t have account?{" "}
+          <span
+            onClick={() => navigate("/register")}
+            className="text-gray-800 font-semibold cursor-pointer hover:underline"
+          >
+            Register
+          </span>
+        </div>
+
       </div>
     </div>
   );

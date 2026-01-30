@@ -29,7 +29,7 @@ function Socialmedias() {
 
     return (
         <div>
-            <div className="px-3 md:!px-12 mt-5">
+            <div className="px-3 md:!px-12 lg:!px-20 mt-5">
                 {/* Desktop view */}
                 <div className="hidden md:flex items-center justify-between">
                     {icons.map((icon, index) => (
@@ -66,7 +66,7 @@ function Socialmedias() {
                     ))}
                 </div>
             </div>
-            <div className="px-4 md:!px-12 py-4">
+            <div className="px-4 md:!px-12 lg:!px-20 py-4">
                 {/* Title */}
                 <h2 className="text-2xl font-semibold text-center mb-6 py-3">
                     Follow us on Instagram

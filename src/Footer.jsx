@@ -3,7 +3,7 @@ import footer from '../public/footer.png'
 
 function Footer() {
     return (
-        <footer className="bg-gray-800 text-gray-400 px-4 sm:!px-8 md:!px-12 xl:!px-12 py-4">
+        <footer className="bg-gray-800 text-gray-400 px-4 sm:!px-8 md:!px-12 lg:!px-20 py-4">
             <div
                 className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-8 pt-4">
                 {/* Column 1 */}

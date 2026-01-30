@@ -29,7 +29,7 @@ function Home() {
 
             <Menubar />
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 px-3 md:!px-12 mt-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 px-3 md:!px-12 lg:!px-20 mt-3">
 
                 <div className="md:col-span-2">
                     <img

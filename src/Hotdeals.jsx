@@ -108,7 +108,7 @@ function Hotdeals() {
     ];
 
     return (
-        <div className="px-3 md:!px-12 mt-5 p-4">
+        <div className="px-3 md:!px-12 lg:!px-20 mt-5 p-4">
             {/* HEADER */}
             <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg sm:text-xl font-bold">Hot Deals</h3>

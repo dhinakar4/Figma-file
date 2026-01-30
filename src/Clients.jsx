@@ -51,7 +51,7 @@ export default function ClientTestimonials() {
 
 
   return (
-    <div className="px-4 sm:!px-8 lg:1px-16 py-12 bg-gray-50">
+    <div className="px-3 md:!px-8 lg:!px-20 py-12 bg-gray-50 mt-5">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl font-semibold">Client Testimonials</h2>

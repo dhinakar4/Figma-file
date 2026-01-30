@@ -29,7 +29,7 @@ function Products() {
     ];
 
     return (
-        <div className="px-3 md:!px-12 mt-5">
+        <div className="px-3 md:!px-12 lg:!px-20 mt-5">
 
             {/* HEADER */}
             <div className="flex items-center justify-between mb-4">
