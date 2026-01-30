@@ -31,14 +31,14 @@ function Menubar() {
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <Nav className="gap-3 w-100">
+                <Nav className="gap-3 w-full flex items-center">
                   <Nav.Link href="#demos" className="items-center text-gray-400 hover:text-gray-200 !flex">Demos <IoIosArrowDown /> </Nav.Link>
                   <Nav.Link href="#features" className="items-center text-gray-400 hover:text-gray-200 !flex">Features <IoIosArrowDown /> </Nav.Link>
                   <Nav.Link href="#elements" className="items-center text-gray-400 hover:text-gray-200 !flex">Elements <IoIosArrowDown /> </Nav.Link>
                   <Nav.Link href="#documentation" className="items-center text-gray-400 hover:text-gray-200 !flex">Documentation <IoIosArrowDown /> </Nav.Link>
                   <Nav.Link href="#support" className="items-center text-gray-400 hover:text-gray-200 !flex">Support <IoIosArrowDown /> </Nav.Link>
                   <Nav.Link href="#faqs" className="items-center text-gray-400 hover:text-gray-200 !flex">Faq's <IoIosArrowDown /> </Nav.Link>
-                  <Nav.Link className="items-center !flex !text-gray-200 gap-2 !ms-auto"><LuPhoneCall size={20} />(219)555-0114 </Nav.Link>
+                  <Nav.Link className="items-center !flex !text-gray-700 gap-2 sm:!text-gray-200 me-20 md:me-0 ms-auto"><LuPhoneCall size={20} />(219)555-0114 </Nav.Link>
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

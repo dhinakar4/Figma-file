@@ -118,21 +118,21 @@ function CategoryDetails() {
     };
 
     const categories = [
-        { id: 1, title: "Green Apple", image: img1, price: "$12.00", oldprice: "$24.00", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "fruits" },
-        { id: 2, title: "Chinese cabbage", image: img2, price: "$12.00", oldprice: "", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: false, category: "vegetables" },
-        { id: 3, title: "Green Lettuce", image: img3, price: "$9.00", oldprice: "$18.00", rating: 4, offerEnd: "2026-01-30T18:30:00", sale: true, inStock: true, category: "vegetables" },
-        { id: 4, title: "Eggplant", image: img4, price: "$34.00", oldprice: "", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "vegetables" },
-        { id: 5, title: "Fresh Cauliflower", image: img5, price: "$12.00", oldprice: "", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "vegetables" },
-        { id: 6, title: "Green Capsicum", image: img6, price: "$9.00", oldprice: "$20.99", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "vegetables" },
-        { id: 7, title: "Green Chilli", image: img7, price: "$34.00", oldprice: "$74.00", rating: 4, offerEnd: "2026-01-30T18:30:00", sale: true, inStock: true, category: "vegetables" },
-        { id: 8, title: "Big Potatoes", image: img8, price: "$12.00", oldprice: "", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: false, category: "vegetables" },
-        { id: 9, title: "Corn", image: img9, price: "$12.00", oldprice: "", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "fruits" },
-        { id: 10, title: "Red Capsium", image: img10, price: "$12.00", oldprice: "$24.00", rating: 4, offerEnd: "2026-01-30T18:30:00", sale: true, inStock: true, category: "vegetables" },
+        { id: 1, title: "Green Apple", image: img1, price: "$15.00", oldprice: "$30.00", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "fruits" },
+        { id: 2, title: "Chinese cabbage", image: img2, price: "$11.00", oldprice: "", rating: 3, offerEnd: "2026-01-30T18:30:00", inStock: false, category: "vegetables" },
+        { id: 3, title: "Green Lettuce", image: img3, price: "$9.00", oldprice: "$18.00", rating: 5, offerEnd: "2026-01-30T18:30:00", sale: true, inStock: true, category: "vegetables" },
+        { id: 4, title: "Eggplant", image: img4, price: "$34.00", oldprice: "", rating: 3.5, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "vegetables" },
+        { id: 5, title: "Fresh Cauliflower", image: img5, price: "$11.00", oldprice: "", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "vegetables" },
+        { id: 6, title: "Green Capsicum", image: img6, price: "$9.00", oldprice: "$20.99", rating: 5, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "vegetables" },
+        { id: 7, title: "Green Chilli", image: img7, price: "$29.00", oldprice: "$60.00", rating: 4, offerEnd: "2026-01-30T18:30:00", sale: true, inStock: true, category: "vegetables" },
+        { id: 8, title: "Big Potatoes", image: img8, price: "$14.00", oldprice: "", rating: 3, offerEnd: "2026-01-30T18:30:00", inStock: false, category: "vegetables" },
+        { id: 9, title: "Corn", image: img9, price: "$17.00", oldprice: "", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "fruits" },
+        { id: 10, title: "Red Capsium", image: img10, price: "$12.00", oldprice: "$24.00", rating: 5, offerEnd: "2026-01-30T18:30:00", sale: true, inStock: true, category: "vegetables" },
         { id: 11, title: "Red Tomatoes", image: img11, price: "$9.00", oldprice: "$20.99", rating: 4, offerEnd: "2026-01-30T18:30:00", sale: true, inStock: true, category: "vegetables" },
-        { id: 12, title: "Surjapur Mango", image: img12, price: "$34.00", oldprice: "", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "fruits" },
+        { id: 12, title: "Surjapur Mango", image: img12, price: "$31.00", oldprice: "", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "fruits" },
         { id: 13, title: "Green Cucumber", image: img13, price: "$15.99", oldprice: "$30.00", rating: 4, offerEnd: "2026-01-30T18:30:00", sale: true, inStock: true, category: "vegetables" },
-        { id: 14, title: "Ladies Finger", image: img14, price: "$14.99", oldprice: "", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: false, category: "vegetables" },
-        { id: 15, title: "Red Chilli", image: img15, price: "$14.99", oldprice: "$28.00", rating: 4, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "vegetables" },
+        { id: 14, title: "Ladies Finger", image: img14, price: "$14.99", oldprice: "", rating: 3, offerEnd: "2026-01-30T18:30:00", inStock: false, category: "vegetables" },
+        { id: 15, title: "Red Chilli", image: img15, price: "$14.99", oldprice: "$28.00", rating: 3.5, offerEnd: "2026-01-30T18:30:00", inStock: true, category: "vegetables" },
     ];
 
     const [qty, setQty] = useState(1);
@@ -398,9 +398,9 @@ function CategoryDetails() {
                      focus:outline-none focus:ring-1 focus:ring-green-500"
                             >
                                 <option value="all">Rating</option>
-                                <option value="5">5 Star</option>
-                                <option value="4">4 Star & Up</option>
-                                <option value="3">3 Star & Up</option>
+                                <option value="5">5</option>
+                                <option value="4">4 above</option>
+                                <option value="3">3 above</option>
                             </select>
                             <MdKeyboardArrowDown
                                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
@@ -548,7 +548,7 @@ function CategoryDetails() {
                             {/* CLOSE */}
                             <button
                                 onClick={() => setSelectedProduct(null)}
-                                className="absolute right-3 top-3 sm:right-4 sm:top-5 text-xl text-gray-500 hover:text-black"
+                                className="absolute right-3 top-3 sm:!right-4 sm:!top-3 text-xl text-gray-500 hover:text-black"
                             >
                                 ✕
                             </button>
@@ -621,7 +621,7 @@ function CategoryDetails() {
                                             {selectedProduct.title}
                                         </span>
                                         {selectedProduct.inStock && (
-                                            <span className="bg-green-200 text-green-800 text-[8px] rounded-sm px-2 py-1">
+                                            <span className="bg-green-200 text-green-800 mt-2 text-[8px] rounded-sm px-2 py-1">
                                                 IN STOCK
                                             </span>
                                         )}

@@ -5,6 +5,8 @@ import Topbar from "./Topbar";
 import Menubar from "./Menubar";
 import Blog from "./Blog";
 import Footer from "./Footer";
+import { FaFacebookF, FaTwitter, FaPinterestP, FaInstagram } from "react-icons/fa";
+
 
 function Wishlist() {
     const [wishlist, setWishlist] = useState([]);
@@ -130,8 +132,28 @@ function Wishlist() {
                                         </button>
                                     </div>
                                 </div>
+
+
                             );
                         })}
+
+                        <hr className="border-t !border-gray-400" />
+
+                        <div className="flex items-center text-center px-4 pb-3 font-semibold">
+                            Share:
+                            <span className="flex gap-1">
+                                {[FaFacebookF, FaTwitter, FaPinterestP, FaInstagram].map(
+                                    (Icon, idx) => (
+                                        <div
+                                            key={idx}
+                                            className="p-2 rounded-full text-gray-700 hover:text-white hover:bg-green-500 cursor-pointer transition"
+                                        >
+                                            <Icon size={14} />
+                                        </div>
+                                    )
+                                )}
+                            </span>
+                        </div>
                     </div>
                 )}
             </div>
