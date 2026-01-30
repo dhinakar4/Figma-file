@@ -60,7 +60,7 @@ function Latestnews() {
                                 {item.content}
                             </div>
                         </div>
-                        <span className="text-green-500 text-sm font-medium cursor-pointer hover:underline pl-3">
+                        <span className="text-green-500 hover:text-green-600 text-sm font-medium cursor-pointer hover:underline pl-3">
                             Read More →
                         </span>
 

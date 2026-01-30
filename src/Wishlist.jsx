@@ -72,22 +72,22 @@ function Wishlist() {
                             return (
                                 <div
                                     key={item.id}
-                                    className="grid grid-cols-1 md:grid-cols-12 gap-3 md:!gap-0 px-4 py-3 border-t border-gray-200 items-center text-start"
+                                    className="relative grid grid-cols-1 md:grid-cols-12 gap-3 md:!gap-0 px-4 py-3 border-t border-gray-200 items-center text-start"
                                 >
                                     {/* PRODUCT */}
-                                    <div className="md:col-span-5 flex items-center gap-3">
+                                    <div className="md:col-span-5 flex flex-col md:flex-row items-center gap-3 text-center md:!text-left">
                                         <img
                                             src={item.image}
                                             alt={item.title}
-                                            className="w-14 h-14 object-cover rounded"
+                                            className="w-full h-40 md:w-14 md:h-14 object-contain rounded"
                                         />
-                                        <span className="text-sm font-medium">
+                                        <span className="text-md font-medium">
                                             {item.title}
                                         </span>
                                     </div>
 
                                     {/* PRICE */}
-                                    <div className="md:col-span-2 text-sm font-semibold">
+                                    <div className="md:col-span-2 text-sm font-semibold text-center md:!text-left">
                                         {item.price}
                                         {item.oldprice && (
                                             <span className="text-gray-400 line-through ml-2 text-xs">
@@ -97,7 +97,7 @@ function Wishlist() {
                                     </div>
 
                                     {/* STOCK */}
-                                    <div className="md:col-span-3">
+                                    <div className="md:col-span-3 text-center md:!text-left">
                                         {inStock ? (
                                             <span className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-md">
                                                 In Stock
@@ -110,11 +110,11 @@ function Wishlist() {
                                     </div>
 
                                     {/* ACTION */}
-                                    <div className="md:col-span-2 flex items-center gap-2 md:justify-end">
+                                    <div className="md:col-span-2 flex flex-col sm:flex-row items-center gap-2 md:justify-end">
                                         <button
                                             disabled={!inStock}
                                             onClick={() => addToCart(item)}
-                                            className={`px-4 py-1.5 text-xs !rounded-full font-semibold flex items-center gap-1
+                                            className={`px-4 py-2 text-xs !rounded-full font-semibold flex items-center gap-1
                                             ${inStock
                                                     ? "bg-green-500 hover:bg-green-600 text-white"
                                                     : "bg-gray-200 text-gray-400 cursor-not-allowed"
@@ -126,7 +126,8 @@ function Wishlist() {
 
                                         <button
                                             onClick={() => removeFromWishlist(item.id)}
-                                            className="text-gray-400 hover:text-red-500  border !rounded-full ms-3"
+                                            className="text-gray-400 hover:text-red-500  border !rounded-full 
+                                            absolute top-2 right-2 md:static ms-0 sm:!ms-3"
                                         >
                                             <IoClose size={12} />
                                         </button>
@@ -139,7 +140,7 @@ function Wishlist() {
 
                         <hr className="border-t !border-gray-400" />
 
-                        <div className="flex items-center text-center px-4 pb-3 font-semibold">
+                        <div className="flex flex-wrap items-center justify-center md:!justify-start text-center px-4 pb-3 font-semibold">
                             Share:
                             <span className="flex gap-1">
                                 {[FaFacebookF, FaTwitter, FaPinterestP, FaInstagram].map(

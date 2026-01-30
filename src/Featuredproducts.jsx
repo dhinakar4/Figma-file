@@ -67,7 +67,7 @@ function Featuredproducts() {
 
                         <div className="flex items-start justify-between px-2">
 
-                            <div className="gap-2 items-start">
+                            <div className="gap-2 items-start ">
                                 <span className="block mt-2 text-xs md:text-sm text-gray-600 items-start group-hover:text-green-600">
                                     {item.title}
                                 </span>
@@ -86,7 +86,7 @@ function Featuredproducts() {
                             </div>
 
 
-                            <button className='hidden md:flex p-2 mt-2 group-hover:bg-green-500 !rounded-full'>
+                            <button className='hidden md:flex p-2 mt-2 group-hover:bg-green-400 group-hover:text-white  !rounded-full'>
                                 <HiOutlineShoppingBag size={18} />
                             </button>
 

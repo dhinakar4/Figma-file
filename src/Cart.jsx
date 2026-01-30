@@ -93,16 +93,18 @@ function Cart() {
                             {cart.map((item) => (
                                 <div
                                     key={item.id}
-                                    className="grid grid-cols-1 md:grid-cols-12 gap-4 px-4 py-4 border-b items-center"
+                                    className="relative grid grid-cols-1 md:grid-cols-12 gap-2 md:!gap-4 px-4 py-3 md:py-4 border-b items-center"
                                 >
                                     {/* PRODUCT */}
-                                    <div className="md:col-span-5 flex items-center gap-4">
+                                    <div className="md:col-span-5 flex flex-col md:flex-row items-center gap-3 text-center md:!text-left">
                                         <img
                                             src={item.image}
                                             alt={item.title}
-                                            className="w-16 h-16 object-contain"
+                                            className="w-full h-40 md:w-14 md:h-14 object-contain rounded"
                                         />
-                                        <span className="font-medium">{item.title}</span>
+                                        <span className="text-md font-medium">
+                                            {item.title}
+                                        </span>
                                     </div>
 
                                     {/* PRICE */}
@@ -130,7 +132,7 @@ function Cart() {
                                     </div>
 
                                     {/* SUBTOTAL + REMOVE */}
-                                    <div className="md:col-span-2 flex justify-end items-center gap-3">
+                                    <div className="md:col-span-2 flex justify-center md:!justify-end items-center gap-3">
                                         <span className="font-semibold">
                                             $
                                             {(
@@ -139,7 +141,7 @@ function Cart() {
                                         </span>
                                         <button
                                             onClick={() => removeItem(item.id)}
-                                            className="text-gray-400 hover:text-red-500 "
+                                            className="absolute top-2 right-2 md:static text-gray-400 hover:text-red-500 "
                                         >
                                             ✕
                                         </button>
@@ -148,7 +150,7 @@ function Cart() {
                             ))}
 
                             {/* ACTION BUTTONS */}
-                            <div className="flex justify-between p-4">
+                            <div className="flex flex-col sm:flex-row gap-3 sm:justify-between p-4">
                                 <button
                                     onClick={() => navigate("/")}
                                     className="bg-gray-100 px-6 py-2 !rounded-full text-sm"
