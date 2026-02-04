@@ -47,7 +47,7 @@ export default function ClientTestimonials() {
 
 
   const isPrevDisabled = index === 0;
-  const isNextDisabled = index === maxIndex;
+  const isNextDisabled = index === 1;
 
 
   return (

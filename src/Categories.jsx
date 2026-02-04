@@ -47,16 +47,20 @@ function Categories() {
                 <h3 className="text-xl font-semibold mb-4">
                     Popular Categories
                 </h3>
-                <span className='text-green-500 text-sm font-medium mb-4'>
+                <span
+                    onClick={() => navigate("/category/all")}
+                    className="text-green-500 text-sm font-medium mb-4 cursor-pointer hover:underline"
+                >
                     View All →
                 </span>
+
             </div>
 
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 md:gap-4">
                 {categories.map((item) => (
                     <div key={item.id} onClick={() => handleCategoryClick(item.title)}
-                    className="text-center border border-gray-200 rounded-md
+                        className="text-center border border-gray-200 rounded-md
                             hover:!border-green-600
                             hover:ring-1 hover:ring-green-600/40
                             hover:shadow-[0_0_15px_rgba(34,197,94,0.35)]
