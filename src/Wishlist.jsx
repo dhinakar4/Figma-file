@@ -24,6 +24,23 @@ function Wishlist() {
     };
 
     const addToCart = (product) => {
+        // ❌ HARD BLOCK out of stock
+        if (!product.inStock) {
+            alert("This product is out of stock");
+            return;
+        }
+
+        // ❌ Login check
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/login", {
+                state: {
+                    redirectTo: "/wishlist",
+                },
+            });
+            return;
+        }
+
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         const existing = cart.find(item => item.id === product.id);
 
@@ -36,9 +53,10 @@ function Wishlist() {
         localStorage.setItem("cart", JSON.stringify(cart));
         window.dispatchEvent(new Event("cartUpdated"));
 
-        // ✅ UX: remove from wishlist after add
+        // ✅ Remove ONLY after successful add
         removeFromWishlist(product.id);
     };
+
 
     return (
 
@@ -110,19 +128,24 @@ function Wishlist() {
                                     </div>
 
                                     {/* ACTION */}
-                                    <div className="md:col-span-2 flex flex-col sm:flex-row items-center gap-2 md:justify-end">
+                                    <div className="md:col-span-2 flex flex-col sm:flex-row items-center gap-2 md:!justify-end ">
                                         <button
                                             disabled={!inStock}
                                             onClick={() => addToCart(item)}
-                                            className={`px-4 py-2 text-xs !rounded-full font-semibold flex items-center gap-1
+                                            className={` flex items-center gap-1
+                                            !rounded-full font-semibold transition px-3 py-1 text-[10px]
+                                            sm:!px-3 sm:!py-1.5 !text-sm md:!px-4 md:!py-2 md:!text-sm 
                                             ${inStock
                                                     ? "bg-green-500 hover:bg-green-600 text-white"
-                                                    : "bg-gray-200 text-gray-400 cursor-not-allowed"
-                                                }`}
+                                                    : "bg-gray-200 text-gray-400 cursor-not-allowed"}`}
                                         >
-                                            <HiOutlineShoppingBag size={14} />
-                                            Add to Cart
+                                            <HiOutlineShoppingBag className="text-[12px] sm:!text-[14px] md:!text-[16px]" />
+                                            <span className="whitespace-nowrap">
+                                                {inStock ? "Add to Cart" : "Out of Stock"}
+                                            </span>
                                         </button>
+
+
 
                                         <button
                                             onClick={() => removeFromWishlist(item.id)}
