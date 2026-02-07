@@ -6,10 +6,6 @@ import { IoPersonOutline } from "react-icons/io5";
 import { FaRegCommentAlt } from "react-icons/fa";
 
 
-
-
-
-
 function Latestnews() {
     const categories = [
         { id: 1, image: img1, content: "Curabitur porttitor orci eget neque accumsan venenatis. Nunc fermentum." },

@@ -2,75 +2,99 @@ import React, { useState } from "react";
 import { FaFacebookF, FaTwitter, FaPinterestP, FaInstagram } from "react-icons/fa";
 
 function Blog() {
-    const [email, setEmail] = useState("");
-    const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Simple email validation regex
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            setError("Please enter a valid email address");
-            return;
-        }
-        setError("");
-        alert(`Subscribed with ${email}`);
-        setEmail("");
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    return (
-        <div>
-            <div className="bg-gray-100 py-8 px-3 md:!px-12 lg:!px-20 flex flex-col md:flex-row items-center justify-between gap-4">
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-                {/* Text */}
-                <div className="text-center md:!text-left">
-                    <h2 className="text-2xl font-bold mb-1">Subscribe to our Newsletter</h2>
-                    <p className="text-gray-400">Pellentesque eu nibh eget mauris congue mattis mattis nec tellus. Phasellus imperdiet elit eu magna.</p>
-                </div>
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address");
+      return;
+    }
 
-                {/* Email Input */}
-                <form
-                    onSubmit={handleSubmit}
-                    className="flex flex-col sm:flex-row items-start md:items-center gap-2 w-full md:w-auto"
-                >
-                    <div className="flex flex-col w-full md:w-auto">
-                        {/* Input + Button */}
-                        <div className="flex w-full md:w-auto !rounded-full border border-gray-300 focus-within:ring-2 focus-within:ring-green-400">
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="px-4 py-2 !text-xs !rounded-l-full w-full focus:outline-none"
-                            />
-                            <button
-                                type="submit"
-                                className="px-2 md:!px-3 lg:!px-3 py-2 bg-green-500 text-white !rounded-r-full hover:bg-green-600 transition"
-                            >
-                                Subscribe
-                            </button>
-                        </div>
+    setError("");
+    alert(`Subscribed with ${email}`);
+    setEmail("");
+  };
 
-                        {/* Validation Error */}
-                        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-                    </div>
-                </form>
+  return (
+    <div className="bg-gray-100 py-8 px-3 md:!px-12 lg:!px-20">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-6">
 
-
-                {/* Social Icons */}
-                <div className="flex gap-3 mt-4 md:!mt-0">
-                    {[FaFacebookF, FaTwitter, FaPinterestP, FaInstagram].map((Icon, idx) => (
-                        <div
-                            key={idx}
-                            className="p-2 rounded-full bg-gray-200 hover:bg-green-500 text-gray-700 hover:text-white cursor-pointer transition"
-                        >
-                            <Icon size={20} />
-                        </div>
-                    ))}
-                </div>
-            </div>
+        {/* TEXT */}
+        <div className="text-center md:!text-left max-w-xl">
+          <h2 className="!text-lg sm:!text-xl md:!text-2xl font-bold mb-1">
+            Subscribe to our Newsletter
+          </h2>
+          <p className="text-gray-400 !text-xs md:!text-sm !leading-relaxed">
+            Pellentesque eu nibh eget mauris congue mattis mattis nec tellus.
+            Phasellus imperdiet elit eu magna.
+          </p>
         </div>
-    );
+
+        {/* FORM */}
+        <form
+          onSubmit={handleSubmit}
+          className="w-full md:w-auto"
+        >
+          <div className="flex flex-col w-full">
+
+            {/* INPUT + BUTTON */}
+            <div className="flex w-full max-w-md mx-auto md:mx-0 !rounded-full border border-gray-300 bg-white
+                            overflow-hidden focus-within:ring-2 focus-within:ring-green-400">
+
+              <input
+                type="email"
+                placeholder="Your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 px-3 sm:!px-4 py-2 !text-xs sm:!text-sm 
+                           focus:!outline-none"
+              />
+
+              <button
+                type="submit"
+                disabled={!email}
+                className={`px-3 sm:!px-4 py-2 bg-green-600 !rounded-full !text-xs sm:!text-sm text-white
+                  whitespace-nowrap transition
+                  ${email
+                    ? " hover:bg-green-600"
+                    : "cursor-not-allowed"
+                  }`}
+              >
+                Subscribe
+              </button>
+            </div>
+
+            {/* ERROR MESSAGE */}
+            {error && (
+              <p className="text-red-500 text-xs sm:text-sm mt-1 text-center md:text-left">
+                {error}
+              </p>
+            )}
+          </div>
+        </form>
+
+        {/* SOCIAL ICONS */}
+        <div className="flex gap-3 justify-center md:justify-start">
+          {[FaFacebookF, FaTwitter, FaPinterestP, FaInstagram].map((Icon, idx) => (
+            <div
+              key={idx}
+              className="p-2 rounded-full bg-gray-200 text-gray-700
+                         hover:bg-green-500 hover:text-white
+                         cursor-pointer transition"
+            >
+              <Icon size={18} />
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </div>
+  );
 }
 
 export default Blog;

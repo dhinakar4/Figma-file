@@ -11,10 +11,23 @@ import img10 from '../public/products/img10.png';
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { CiHeart } from "react-icons/ci";
 import { IoEyeOutline } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom';
 
 
 
 function Products() {
+
+    const navigate = useNavigate();
+
+    const handleCategoryClick = (title) => {
+        const slug = title
+            .toLowerCase()
+            .replace(/ & /g, "-")
+            .replace(/\s+/g, "-");
+
+        navigate(`/category/${slug}`);
+    };
+
     const categories = [
         { id: 1, title: "Green Apple", image: img1, price: "$14.99", oldprice: "$20.99", rating: 4 },
         { id: 2, title: "Fresh Indian Malta", image: img2, price: "$14.99", oldprice: "", rating: 4 },
@@ -36,7 +49,9 @@ function Products() {
                 <h3 className="text-lg sm:text-xl font-semibold">
                     Popular Products
                 </h3>
-                <span className="text-green-500 text-sm font-medium cursor-pointer hover:underline mb-2">
+                <span
+                    onClick={() => navigate("/category/all")}
+                    className="text-green-500 text-sm font-medium cursor-pointer hover:underline mb-2">
                     View All →
                 </span>
             </div>
@@ -46,6 +61,7 @@ function Products() {
                 {categories.map((item, index) => (
                     <div
                         key={item.id}
+                        onClick={() => handleCategoryClick(item.title)}
                         className="p-2 sm:p-3 border border-gray-200 relative
                             hover:!border-green-600 group
                             hover:ring-1 hover:ring-green-600/40

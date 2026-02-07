@@ -5,23 +5,8 @@ import bg from "../public/img5.png";
 import { CgHome } from "react-icons/cg";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { products } from "./data/Products";
 
-
-import img1 from "../public/hotdeals/img1.png";
-import img2 from "../public/hotdeals/img2.png";
-import img3 from "../public/hotdeals/img3.png";
-import img4 from "../public/hotdeals/img4.png";
-import img5 from "../public/hotdeals/img5.png";
-import img6 from "../public/hotdeals/img6.png";
-import img7 from "../public/hotdeals/img7.png";
-import img8 from "../public/hotdeals/img8.png";
-import img9 from "../public/hotdeals/img9.png";
-import img10 from "../public/hotdeals/img10.png";
-import img11 from "../public/hotdeals/img11.png";
-import img12 from "../public/hotdeals/img12.png";
-import img13 from "../public/hotdeals/img13.png";
-import img14 from "../public/hotdeals/img14.png";
-import img15 from "../public/hotdeals/img15.png";
 import brand from '../public/brand.png';
 import detail2 from '../public/detailimage/img2.png';
 import detail3 from '../public/detailimage/img3.png';
@@ -124,25 +109,7 @@ function CategoryDetails() {
         window.dispatchEvent(new Event("wishlistUpdated")); // optional
     };
 
-    const categories = [
-        {
-            id: 1, title: "Green Apple", image: img1, price: "$15.00", oldprice: "$30.00", rating: 4, offerEnd: "2026-02-28T18:30:00", inStock: true, category: "fruits"
-        },
-        { id: 2, title: "Chinese cabbage", image: img2, price: "$11.00", oldprice: "", rating: 3, offerEnd: "2026-04-02T23:59:59", inStock: false, category: "vegetables" },
-        { id: 3, title: "Green Lettuce", image: img3, price: "$9.00", oldprice: "$18.00", rating: 5, offerEnd: "2026-04-02T23:59:59", sale: true, inStock: true, category: "vegetables" },
-        { id: 4, title: "Eggplant", image: img4, price: "$34.00", oldprice: "", rating: 3.5, offerEnd: "2026-04-02T23:59:59", inStock: true, category: "vegetables" },
-        { id: 5, title: "Fresh Cauliflower", image: img5, price: "$11.00", oldprice: "", rating: 4, offerEnd: "2026-04-02T23:59:59", inStock: true, category: "vegetables" },
-        { id: 6, title: "Green Capsicum", image: img6, price: "$9.00", oldprice: "$20.99", rating: 5, offerEnd: "2026-04-02T23:59:59", inStock: true, category: "vegetables" },
-        { id: 7, title: "Green Chilli", image: img7, price: "$29.00", oldprice: "$60.00", rating: 4, offerEnd: "2026-04-02T23:59:59", sale: true, inStock: true, category: "vegetables" },
-        { id: 8, title: "Big Potatoes", image: img8, price: "$14.00", oldprice: "", rating: 3, offerEnd: "2026-04-02T23:59:59", inStock: false, category: "vegetables" },
-        { id: 9, title: "Corn", image: img9, price: "$17.00", oldprice: "", rating: 4, offerEnd: "2026-04-02T23:59:59", inStock: true, category: "fruits" },
-        { id: 10, title: "Red Capsium", image: img10, price: "$12.00", oldprice: "$24.00", rating: 5, offerEnd: "2026-04-02T23:59:59", sale: true, inStock: true, category: "vegetables" },
-        { id: 11, title: "Red Tomatoes", image: img11, price: "$9.00", oldprice: "$20.99", rating: 4, offerEnd: "2026-04-02T23:59:59", sale: true, inStock: true, category: "vegetables" },
-        { id: 12, title: "Surjapur Mango", image: img12, price: "$31.00", oldprice: "", rating: 4, offerEnd: "2026-04-02T23:59:59", inStock: true, category: "fruits" },
-        { id: 13, title: "Green Cucumber", image: img13, price: "$15.99", oldprice: "$30.00", rating: 4, offerEnd: "2026-04-02T23:59:59", sale: true, inStock: true, category: "vegetables" },
-        { id: 14, title: "Ladies Finger", image: img14, price: "$14.99", oldprice: "", rating: 3, offerEnd: "2026-04-02T23:59:59", inStock: false, category: "vegetables" },
-        { id: 15, title: "Red Chilli", image: img15, price: "$14.99", oldprice: "$28.00", rating: 3.5, offerEnd: "2026-04-02T23:59:59", inStock: true, category: "vegetables" },
-    ];
+    const categories = products;
 
     const [qty, setQty] = useState(1);
 
@@ -289,8 +256,9 @@ function CategoryDetails() {
             <Topbar />
             <Menubar />
 
-            <div className="flex items-center gap-2 text-sm text-gray-500 mb-4 mt-2 px-3 md:!px-20">
+            <div className="flex items-center gap-2 text-sm text-gray-500 mb-4 mt-4 px-3 md:!px-20">
                 <CgHome />
+                <span>›</span>
                 <span>Categories</span>
                 <span>›</span>
                 <span className="text-green-600 font-medium">
@@ -298,7 +266,7 @@ function CategoryDetails() {
                 </span>
             </div>
 
-            <div className="px-3 md:!px-12 lg:!px-20 mt-5">
+            <div className="px-3 md:!px-12 lg:!px-20 mt-3">
                 <div className="relative rounded-xl overflow-hidden">
 
                     <div className="grid grid-cols-12 min-h-[220px] md:min-h-[320px]">
