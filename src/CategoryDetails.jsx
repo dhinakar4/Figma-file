@@ -8,9 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { products } from "./data/Products";
 
 import brand from '../public/brand.png';
-import detail2 from '../public/detailimage/img2.png';
-import detail3 from '../public/detailimage/img3.png';
-import detail4 from '../public/detailimage/img4.png';
 
 import Blog from "./Blog";
 import Footer from "./Footer";
@@ -129,18 +126,16 @@ function CategoryDetails() {
 
     const detailImages = selectedProduct
         ? [
-            selectedProduct.image,
-            detail2,
-            detail3,
-            detail4,
+            selectedProduct.image,          // ✅ product main image FIRST
+            ...(selectedProduct.images || []) // ✅ detail images next
         ]
         : [];
 
     const [activeImage, setActiveImage] = useState(null);
 
     useEffect(() => {
-        if (selectedProduct?.image) {
-            setActiveImage(selectedProduct.image);
+        if (detailImages.length) {
+            setActiveImage(detailImages[0]);
             setThumbIndex(0);
         }
     }, [selectedProduct]);
